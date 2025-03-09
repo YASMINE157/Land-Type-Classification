@@ -423,7 +423,8 @@
 
       <div id="result-box" class="result-box">
         <h3>Predicted Class: <span id="predicted-class"></span></h3>
-        <img id="probability-plot" src="" alt="Probability Plot" />
+        <img id="result-image" style="display: none; max-width: 300px;" />
+        <!--<img id="probability-plot" src="" alt="Probability Plot" />-->
       </div>
     </section>
 
@@ -460,20 +461,11 @@
     </footer>
 
     <script>
-     const classMapping = {
-  0: "Cat",
-  1: "Dog",
-  2: "Car",
-  3: "Airplane",
-  4: "Tree",
-  5: "", 
-  6: "", 
-  7: "", 
-  8: "", 
-  9: ""
-};
+    document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("predict-btn").addEventListener("click", predict);
+});
 
-async function predict() {
+    async function predict() {
   try {
     let formData = new FormData();
     let imageFile = document.getElementById("file-upload").files[0];
@@ -485,7 +477,7 @@ async function predict() {
 
     formData.append("file", imageFile);
 
-    let response = await fetch("http://127.0.0.1:8000/predict/", {
+    let response = await fetch("/predict/", {
       method: "POST",
       body: formData
     });
@@ -497,14 +489,18 @@ async function predict() {
     let data = await response.json();
     console.log("Server Response:", data);
 
-    let classId = data.prediction[0].class_id;
-    let score = (data.prediction[0].score * 100).toFixed(2);
+    // الحصول على العناصر
+    let classElement = document.getElementById("predicted-class");
+    let imageElement = document.getElementById("result-image");
 
-    let className = classMapping[classId] || `Unknown Class (${classId})`;
+    if (!classElement || !imageElement) {
+      throw new Error("HTML elements not found! Check your IDs in HTML.");
+    }
 
-    document.getElementById("predicted-class").innerText = ` ${className} (${score}%)`;
+    classElement.innerText = ` ${data.prediction}`;
+    imageElement.src = data.image_url;
+    imageElement.style.display = "block"; // إظهار الصورة
 
-    document.getElementById("probability-plot").src = data.plot_url;
     document.getElementById("result-box").style.display = "block";
 
   } catch (error) {
@@ -512,8 +508,6 @@ async function predict() {
     alert(`An error occurred while processing the image: ${error.message}`);
   }
 }
-
-document.getElementById("predict-btn").addEventListener("click", predict);
 
     </script>
   </body>
