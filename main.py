@@ -9,7 +9,7 @@ from ultralytics import YOLO
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-model = YOLO("yolo_last.pt")
+model = YOLO("best.pt")
 model.to("cpu")
 model.eval()
 
