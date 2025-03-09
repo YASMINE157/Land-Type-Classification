@@ -489,7 +489,7 @@
     let data = await response.json();
     console.log("Server Response:", data);
 
-    // الحصول على العناصر
+    
     let classElement = document.getElementById("predicted-class");
     let imageElement = document.getElementById("result-image");
 
@@ -499,7 +499,7 @@
 
     classElement.innerText = ` ${data.prediction}`;
     imageElement.src = data.image_url;
-    imageElement.style.display = "block"; // إظهار الصورة
+    imageElement.style.display = "block"; 
 
     document.getElementById("result-box").style.display = "block";
 
@@ -508,7 +508,6 @@
     alert(`An error occurred while processing the image: ${error.message}`);
   }
 }
-
     </script>
   </body>
 </html>
