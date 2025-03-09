@@ -66,6 +66,6 @@ async def predict(file: UploadFile = File(...)):
 
     return {
         "prediction": predictions,
-        "image_url": f"http://127.0.0.1:8000/static/{file.filename}",
-        "plot_url": f"http://127.0.0.1:8000/static/plot_{file.filename}.png",
+        "image_url": f"https://effective-space-waddle-9vrr5q7wp44cx45-8000.app.github.dev/static/{file.filename}",
+        "plot_url": f"https://effective-space-waddle-9vrr5q7wp44cx45-8000.app.github.dev/static/plot_{file.filename}.png",
     }
