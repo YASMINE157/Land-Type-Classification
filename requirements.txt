@@ -1,0 +1,6 @@
+uvicorn
+fastapi
+torchvision
+ultralytics
+opencv-python-headless
+python-multipart
