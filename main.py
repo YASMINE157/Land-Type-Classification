@@ -23,6 +23,10 @@ model.eval()
 # Initialize FastAPI app
 app = FastAPI()
 
+@app.get("/")
+async def root():
+    return {"message": "Hello from Hugging Face!"}
+
 # Enable CORS for frontend integration
 app.add_middleware(
     CORSMiddleware,
